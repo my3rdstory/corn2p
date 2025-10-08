@@ -17,7 +17,7 @@ p2phelper 는 비트코인 p2p 거래 과정을 자동화하여 보다 쉽고 �
 
 ## .env 파일 생성
 
-프로젝트 루트에 .env.dev 파일을 복사하여 .env 파일을 만들고 위에서 생성한 텔레그램 봇의 username 과 bot token 을 .env 파일에 환경변수로 저장합니다.
+프로젝트 루트에 .env.sample 파일을 복사하여 .env 파일을 만들고 위에서 생성한 텔레그램 봇의 username 과 bot token 을 .env 파일에 환경변수로 저장합니다.
 
 ```
 TELEGRAM_BOT_USERNANE="p2phelper_tmp_bot"
