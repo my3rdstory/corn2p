@@ -30,6 +30,12 @@ ENC_SECRET="blabla-secret"
 
 <br/>
 
+## db.json 파일 생성
+
+프로젝트 루트의 db-sample.json 파일을 복사하여 db.json 파일을 생성합니다. 해당 파일은 판매자 및 구매자 정보 그리고 거래 정보들이 저장되고 관리됩니다.
+
+<br/>
+
 ## 관리자 라이트닝 주소 설정 ⚡️
 
 src/biz/config.ts 에서 운영자 본인의 라이트닝 주소를 입력합니다.
