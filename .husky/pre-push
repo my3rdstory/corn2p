@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Get the current branch name
+current_branch=$(git branch --show-current)
+
+if [ "$current_branch" == "develop" ]; then
+  npm run test
+else
+  echo "You are not on the 'develop' branch. Current branch: $current_branch"
+fi

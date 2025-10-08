@@ -1,0 +1,11 @@
+.idea
+.vscode
+nohup.out
+node_modules/
+dist/
+coverage/
+.DS_Store
+.env
+.env.dev
+db-dev.json
+db.json
