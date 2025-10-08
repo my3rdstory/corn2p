@@ -24,7 +24,7 @@
 ### 빠른 시작
 
 1. Node.js 20 이상 설치
-2. 프로젝트 루트에 `.env.dev`를 복사해 `.env` 생성 후 토큰/시크릿 설정
+2. 프로젝트 루트에 `.env.sample`를 복사해 `.env.dev` 생성 후 토큰/시크릿 설정
 3. `npm install`
 4. 개발: `npm run dev` (브랜치가 `main`이 아니면 자동으로 개발 모드)
 5. 운영: `npm run build` → `npm start`
