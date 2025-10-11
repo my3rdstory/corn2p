@@ -66,6 +66,8 @@ sudo apt install -y nodejs
 git clone https://github.com/toshi0010/p2phelper.git
 ```
 
+- 기기에 git 이 설치되어 있지 않다면 git 을 먼저 설치하셔야 합니다
+
 <br/>
 
 ## 의존성 설치 및 프로젝트 빌드 🧱
