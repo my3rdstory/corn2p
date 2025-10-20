@@ -57,7 +57,7 @@ import {
   TRADE_FEE_MIN,
   WATING_NOTI_TIME,
 } from './config'
-import { BTCUNIT, DAY, MINUTE } from './constants'
+import { BTCUNIT, DAY, MINUTE, strikeApiKeyReg } from './constants'
 import {
   findTrade,
   getBuyers,
@@ -107,6 +107,11 @@ export const validateNewSellerParams = async ({
     `프리미엄은 숫자만 가능합니다.`,
   )
   assert(gtelte(-10, _premium, 10), `프리미엄은 -10% ~ 10% 까지만 가능합니다.`)
+
+  assert(
+    new RegExp(strikeApiKeyReg).test(apiKey) || apiKey.startsWith('blink_'),
+    `지갑 apiKey 가 유효하지 않습니다.`,
+  )
 
   assert(
     !pushBulletKey || pushBulletKey.startsWith('o.'),
