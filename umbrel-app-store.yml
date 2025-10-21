@@ -1,0 +1,6 @@
+id: corn2p-store
+name: Corn2P Community App Store
+description: Corn2P 텔레그램 P2P 봇을 Umbrel에서 손쉽게 사용할 수 있도록 제공하는 커뮤니티 앱 저장소입니다.
+maintainers:
+  - name: Corn2P Maintainers
+    email: opensource@my3rdstory.com

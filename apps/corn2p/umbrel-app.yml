@@ -7,9 +7,9 @@ releaseNotes: |
   - Umbrel 앱 스켈레톤과 Docker 빌드 환경을 추가했습니다.
   - Bulma + htmx 기반 설정 페이지와 ENC_SECRET 자동 생성기를 포함했습니다.
   - db.json 편집을 위한 안전 장치 및 경고 워크플로우를 추가했습니다.
-icon: https://raw.githubusercontent.com/my3rdstory/corn2p/main/assets/icon.png
+icon: assets/icon.png
 gallery:
-  - https://raw.githubusercontent.com/my3rdstory/corn2p/main/assets/banner.png
+  - assets/banner.png
 tagline: "텔레그램 P2P 거래 도우미"
 description: |
   Corn2P는 텔레그램 봇과 PushBullet을 연동해서 P2P 거래를 자동화하고 감시하는 도구입니다.
@@ -17,7 +17,7 @@ description: |
 website: https://github.com/my3rdstory/corn2p
 source: https://github.com/my3rdstory/corn2p
 support: https://github.com/my3rdstory/corn2p/issues
-developer: toshi
+developer: Corn2P Community
 dependencies: []
 repo: https://github.com/my3rdstory/corn2p
 port: 2121

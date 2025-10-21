@@ -4,14 +4,15 @@ services:
   corn2p:
     image: ${APP_IMAGE:-corn2p:latest}
     build:
-      context: .
+      context: ../..
+      dockerfile: Dockerfile
     restart: unless-stopped
     user: "1000:1000"
     environment:
       - CORN2P_DATA_DIR=/data
       - CORN2P_UI_PORT=2121
     volumes:
-      - ${APP_DATA_DIR:-./.umbrel-data}/data:/data
+      - ${APP_DATA_DIR}:/data
     logging:
       driver: json-file
       options:

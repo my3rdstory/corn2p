@@ -74,6 +74,21 @@ sudo apt install -y nodejs
 
 Corn2P는 Bulma + htmx 기반의 경량 설정 페이지를 내장하고 있습니다. Umbrel 대시보드에서 Corn2P 앱을 열면 브라우저로 접속할 수 있으며, 암호화 시크릿은 "자동 생성" 버튼으로 즉시 랜덤 값을 발급받아 저장할 수 있습니다. db.json(상태 데이터)은 경고 안내 후 텍스트 영역에서 직접 열람/편집할 수 있으며, 잘못된 수정은 서비스에 치명적인 문제를 야기할 수 있으므로 주의하세요. 설정을 저장한 뒤에는 앱을 한 번 재시작해야 새 값이 적용됩니다.
 
+#### 폴더 구조
+
+- `apps/corn2p/umbrel-app.yml`: Umbrel 앱 메타데이터
+- `apps/corn2p/docker-compose.yml`: Umbrel가 consume 하는 Compose 파일 (루트 Dockerfile을 기준으로 빌드)
+- `apps/corn2p/assets/`: 앱 스토어에서 사용하는 아이콘/배너
+- 루트 디렉터리: Corn2P 봇 소스 코드 및 Docker 빌드 자원
+
+로컬에서 Umbrel 구조를 테스트하려면 다음과 같이 실행할 수 있습니다.
+
+```
+APP_DATA_DIR=$PWD/.umbrel-data docker compose -f apps/corn2p/docker-compose.yml up --build
+```
+
+위 명령은 Umbrel가 내부적으로 수행하는 동작을 재현하며, `.umbrel-data` 폴더에 설정/DB 파일이 생성됩니다.
+
 ### 직접 서버에서 설치 ⬇️
 
 ```
