@@ -13,13 +13,13 @@ Corn2P는 비트코인 p2p 거래 과정을 자동화하여 보다 쉽고 빠르
 
 텔레그램 봇은 [@BotFather](https://t.me/BotFather) 봇을 이용해 생성합니다. 아래와 같이 `/newbot` 명령을 입력한 후 봇의 이름 그리고 username 을 차례대로 입력하면 새로운 봇 생성이 완료됩니다
 
-![](/docs/images/telegram_bot.png)
+![](corn2p/docs/images/telegram_bot.png)
 
 <br/>
 
 ## .env 파일 생성
 
-프로젝트 루트에 .env.sample 파일을 복사하여 .env 파일을 만들고 위에서 생성한 텔레그램 봇의 username 과 bot token 을 .env 파일에 환경변수로 저장합니다.
+`corn2p` 디렉터리(앱 루트)에 .env.sample 파일을 복사하여 .env 파일을 만들고 위에서 생성한 텔레그램 봇의 username 과 bot token 을 .env 파일에 환경변수로 저장합니다.
 
 ```
 TELEGRAM_BOT_USERNANE="corn2p_tmp_bot"
@@ -34,7 +34,7 @@ ENC_SECRET="blabla-secret"
 
 ## 관리자 라이트닝 주소 설정 ⚡️
 
-src/biz/config.ts 에서 운영자 본인의 라이트닝 주소를 입력합니다.
+corn2p/src/biz/config.ts 에서 운영자 본인의 라이트닝 주소를 입력합니다.
 
 ```
 export const ADMIN_ADDRESS = 'p2phelper@blink.sv'
@@ -67,7 +67,7 @@ sudo apt install -y nodejs
 ### Umbrel 커뮤니티 앱으로 설치 🌈
 
 1. Umbrel OS에서 앱 스토어에 접속합니다.
-2. 커뮤니티 앱 스토어에 `Corn2P` 리포지토리(`https://github.com/my3rdstory/corn2p`)를 추가하거나, 수동으로 `corn2p/umbrel-app.yml`을 등록합니다.
+2. 커뮤니티 앱 스토어에 `Corn2P` 리포지토리(`https://github.com/my3rdstory/dedsec-umbrel-app-store`)를 추가하거나, 수동으로 `corn2p/umbrel-app.yml`을 등록합니다.
 3. 앱 설치 화면의 GUI 폼에서 텔레그램 토큰, 챗 ID 등 필수 설정값을 입력하고 설치를 완료합니다.
 
 앱 설치 이후에는 `/data/umbrel/app-data/corn2p/` 경로에 설정과 데이터베이스가 저장되며, Umbrel 관리자 페이지에서 손쉽게 재시작/삭제할 수 있습니다.
@@ -76,10 +76,12 @@ Corn2P는 Bulma + htmx 기반의 경량 설정 페이지를 내장하고 있습�
 
 #### 폴더 구조
 
+- `umbrel-app-store.yml`: Umbrel 커뮤니티 앱 스토어 메타데이터
 - `corn2p/umbrel-app.yml`: Umbrel 앱 메타데이터
-- `corn2p/docker-compose.yml`: Umbrel가 consume 하는 Compose 파일 (루트 Dockerfile을 기준으로 빌드)
+- `corn2p/docker-compose.yml`: Umbrel가 consume 하는 Compose 파일 (동일 디렉터리의 Dockerfile을 기준으로 빌드)
+- `corn2p/Dockerfile`: Corn2P 봇 컨테이너 빌드 스크립트
 - `corn2p/assets/`: 앱 스토어에서 사용하는 아이콘/배너
-- 루트 디렉터리: Corn2P 봇 소스 코드 및 Docker 빌드 자원
+- `corn2p/src/`: Corn2P 봇 TypeScript 소스 및 실행 코드
 
 로컬에서 Umbrel 구조를 테스트하려면 다음과 같이 실행할 수 있습니다.
 
@@ -92,7 +94,8 @@ APP_DATA_DIR=$PWD/.umbrel-data docker compose -f corn2p/docker-compose.yml up --
 ### 직접 서버에서 설치 ⬇️
 
 ```
-git clone https://github.com/my3rdstory/corn2p.git
+git clone https://github.com/my3rdstory/dedsec-umbrel-app-store.git
+cd dedsec-umbrel-app-store/corn2p
 ```
 
 - 기기에 git 이 설치되어 있지 않다면 git 을 먼저 설치하셔야 합니다
@@ -101,7 +104,7 @@ git clone https://github.com/my3rdstory/corn2p.git
 
 ## 의존성 설치 및 프로젝트 빌드 🧱
 
-여기부터는 프로젝트의 설치 경로에서 아래 명령을 차례로 수행합니다. 프로젝트 최초 설치시 또는 이후 버젼 업데이트시 한번만 수행합니다.
+여기부터는 `corn2p` 디렉터리에서 아래 명령을 차례로 수행합니다. 프로젝트 최초 설치시 또는 이후 버젼 업데이트시 한번만 수행합니다.
 
 ### 의존성 설치
 
@@ -119,7 +122,7 @@ npm run build
 
 ## 프로젝트 시작 🚀
 
-다음 명령으로 Corn2P 를 시작합니다.
+다음 명령으로 Corn2P 를 시작합니다. (항상 `corn2p` 디렉터리에서 실행)
 
 ```
 npm start
@@ -138,7 +141,7 @@ nohup npm start &
 
 프로젝트 개발에 함께 참여하길 원한다면 아래 문서를 참고해 주세요.
 
-[/docs/00-onboarding.md](/docs/00-onboarding.md)
+[`corn2p/docs/00-onboarding.md`](corn2p/docs/00-onboarding.md)
 
 <br/>
 <br/>

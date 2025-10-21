@@ -9,7 +9,7 @@ services:
   corn2p:
     image: ${APP_IMAGE:-corn2p:latest}
     build:
-      context: ..
+      context: .
       dockerfile: Dockerfile
     restart: unless-stopped
     user: "1000:1000"

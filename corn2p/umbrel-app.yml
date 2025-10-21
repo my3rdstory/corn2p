@@ -14,12 +14,12 @@ tagline: "텔레그램 P2P 거래 도우미"
 description: |
   Corn2P는 텔레그램 봇과 PushBullet을 연동해서 P2P 거래를 자동화하고 감시하는 도구입니다.
   본 패키지는 Umbrel 커뮤니티 앱 스토어 배포를 위한 기본 구조와 Docker 설정을 제공합니다.
-website: https://github.com/my3rdstory/corn2p
-source: https://github.com/my3rdstory/corn2p
-support: https://github.com/my3rdstory/corn2p/issues
+website: https://github.com/my3rdstory/dedsec-umbrel-app-store
+source: https://github.com/my3rdstory/dedsec-umbrel-app-store
+support: https://github.com/my3rdstory/dedsec-umbrel-app-store/issues
 developer: Corn2P Community
 dependencies: []
-repo: https://github.com/my3rdstory/corn2p
+repo: https://github.com/my3rdstory/dedsec-umbrel-app-store
 port: 2121
 appProxy:
   target: corn2p
