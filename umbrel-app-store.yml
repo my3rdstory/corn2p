@@ -5,3 +5,10 @@ description: Corn2P 텔레그램 P2P 봇을 Umbrel에서 손쉽게 사용할 수
 maintainers:
   - name: Corn2P Maintainers
     email: opensource@my3rdstory.com
+links:
+  source: https://github.com/my3rdstory/corn2p
+  issues: https://github.com/my3rdstory/corn2p/issues
+tags:
+  - corn2p
+  - telegram
+  - community

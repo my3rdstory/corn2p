@@ -25,6 +25,9 @@ appProxy:
   target: corn2p
   port: 2121
   path: /
+architectures:
+  - amd64
+  - arm64
 forms:
   setup:
     title: Corn2P 설정
