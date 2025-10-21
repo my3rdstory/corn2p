@@ -1,15 +1,15 @@
 manifestVersion: 1
 id: corn2p
-category: finance
+category: Bitcoin
 name: Corn2P
 version: 0.1.1
 releaseNotes: |
   - Umbrel 앱 스켈레톤과 Docker 빌드 환경을 추가했습니다.
   - Bulma + htmx 기반 설정 페이지와 ENC_SECRET 자동 생성기를 포함했습니다.
   - db.json 편집을 위한 안전 장치 및 경고 워크플로우를 추가했습니다.
-icon: assets/icon.png
+icon: https://raw.githubusercontent.com/my3rdstory/corn2p/main/assets/icon.png
 gallery:
-  - assets/banner.png
+  - https://raw.githubusercontent.com/my3rdstory/corn2p/main/assets/banner.png
 tagline: "텔레그램 P2P 거래 도우미"
 description: |
   Corn2P는 텔레그램 봇과 PushBullet을 연동해서 P2P 거래를 자동화하고 감시하는 도구입니다.

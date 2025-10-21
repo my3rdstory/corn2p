@@ -11,15 +11,9 @@ services:
       - CORN2P_DATA_DIR=/data
       - CORN2P_UI_PORT=2121
     volumes:
-      - corn2p_data:/data
-    ports:
-      - "2121:2121"
+      - ${APP_DATA_DIR:-./.umbrel-data}/data:/data
     logging:
       driver: json-file
       options:
         max-size: "10m"
         max-file: "3"
-
-volumes:
-  corn2p_data:
-    driver: local
