@@ -1,0 +1,28 @@
+manifestVersion: 1
+id: test-app
+category: developer
+name: Test App
+version: 0.0.1
+releaseNotes: |
+  - Umbrel 스토어 카드 노출 테스트용 초기 릴리스입니다.
+tagline: "Umbrel 카드 노출 확인용 간단한 데모"
+description: |
+  Test App은 Umbrel 커뮤니티 앱 스토어에 카드가 정상적으로 표시되는지 검증하기 위한 최소 구성 예시입니다.
+  nginx 기반의 간단한 웹 서버를 사용하며, 앱 설치 후 `http://umbrel.local:2122` 경로로 접근할 수 있습니다.
+icon: assets/icon.png
+gallery:
+  - assets/icon.png
+developer: DedSec Labs
+website: https://github.com/my3rdstory/dedsec-umbrel-app-store
+source: https://github.com/my3rdstory/dedsec-umbrel-app-store
+support: https://github.com/my3rdstory/dedsec-umbrel-app-store/issues
+repo: https://github.com/my3rdstory/dedsec-umbrel-app-store
+dependencies: []
+port: 2122
+appProxy:
+  target: test-app
+  port: 2122
+  path: /
+architectures:
+  - amd64
+  - arm64

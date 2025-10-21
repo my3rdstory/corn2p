@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: test-app
+      APP_PORT: 2122
+
+  test-app:
+    image: nginx:alpine
+    restart: unless-stopped
+    environment:
+      - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.template
+    volumes:
+      - ${APP_DATA_DIR:-./.umbrel-test-data}:/usr/share/nginx/html:ro
