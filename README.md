@@ -67,7 +67,7 @@ sudo apt install -y nodejs
 ### Umbrel 커뮤니티 앱으로 설치 🌈
 
 1. Umbrel OS에서 앱 스토어에 접속합니다.
-2. 커뮤니티 앱 스토어에 `Corn2P` 리포지토리(`https://github.com/my3rdstory/corn2p`)를 추가하거나, 수동으로 `umbrel-app.yml`을 등록합니다.
+2. 커뮤니티 앱 스토어에 `Corn2P` 리포지토리(`https://github.com/my3rdstory/corn2p`)를 추가하거나, 수동으로 `corn2p/umbrel-app.yml`을 등록합니다.
 3. 앱 설치 화면의 GUI 폼에서 텔레그램 토큰, 챗 ID 등 필수 설정값을 입력하고 설치를 완료합니다.
 
 앱 설치 이후에는 `/data/umbrel/app-data/corn2p/` 경로에 설정과 데이터베이스가 저장되며, Umbrel 관리자 페이지에서 손쉽게 재시작/삭제할 수 있습니다.
@@ -76,15 +76,15 @@ Corn2P는 Bulma + htmx 기반의 경량 설정 페이지를 내장하고 있습�
 
 #### 폴더 구조
 
-- `apps/corn2p/umbrel-app.yml`: Umbrel 앱 메타데이터
-- `apps/corn2p/docker-compose.yml`: Umbrel가 consume 하는 Compose 파일 (루트 Dockerfile을 기준으로 빌드)
-- `apps/corn2p/assets/`: 앱 스토어에서 사용하는 아이콘/배너
+- `corn2p/umbrel-app.yml`: Umbrel 앱 메타데이터
+- `corn2p/docker-compose.yml`: Umbrel가 consume 하는 Compose 파일 (루트 Dockerfile을 기준으로 빌드)
+- `corn2p/assets/`: 앱 스토어에서 사용하는 아이콘/배너
 - 루트 디렉터리: Corn2P 봇 소스 코드 및 Docker 빌드 자원
 
 로컬에서 Umbrel 구조를 테스트하려면 다음과 같이 실행할 수 있습니다.
 
 ```
-APP_DATA_DIR=$PWD/.umbrel-data docker compose -f apps/corn2p/docker-compose.yml up --build
+APP_DATA_DIR=$PWD/.umbrel-data docker compose -f corn2p/docker-compose.yml up --build
 ```
 
 위 명령은 Umbrel가 내부적으로 수행하는 동작을 재현하며, `.umbrel-data` 폴더에 설정/DB 파일이 생성됩니다.
