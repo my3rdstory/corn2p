@@ -1,13 +1,15 @@
-# p2phelper
+# Corn2P
 
-p2phelper 는 비트코인 p2p 거래 과정을 자동화하여 보다 쉽고 빠르게 판매자와 구매자가 비트코인 거래를 수행할 수 있도록 도와주는 텔레그램 봇입니다.
+Corn2P는 비트코인 p2p 거래 과정을 자동화하여 보다 쉽고 빠르게 판매자와 구매자가 비트코인 거래를 수행할 수 있도록 도와주는 텔레그램 봇입니다. 현재 코드는 Umbrel 커뮤니티 앱으로 패키징되어, Umbrel 노드 이용자는 앱 스토어를 통해 손쉽게 설치 및 설정할 수 있습니다.
+
+본 프로젝트는 toshi 님의 `p2phelper`를 포크한 버전이며, 원본 코드는 https://github.com/toshi0010/p2phelper 에서 확인할 수 있습니다. 훌륭한 기반을 제공해 주신 toshi 님께 감사드립니다.
 
 <br/>
 <br/>
 
 # 설치 전 준비사항
 
-## p2phelper 텔레그램 봇 생성 🤖
+## Corn2P 텔레그램 봇 생성 🤖
 
 텔레그램 봇은 [@BotFather](https://t.me/BotFather) 봇을 이용해 생성합니다. 아래와 같이 `/newbot` 명령을 입력한 후 봇의 이름 그리고 username 을 차례대로 입력하면 새로운 봇 생성이 완료됩니다
 
@@ -20,7 +22,7 @@ p2phelper 는 비트코인 p2p 거래 과정을 자동화하여 보다 쉽고 �
 프로젝트 루트에 .env.sample 파일을 복사하여 .env 파일을 만들고 위에서 생성한 텔레그램 봇의 username 과 bot token 을 .env 파일에 환경변수로 저장합니다.
 
 ```
-TELEGRAM_BOT_USERNANE="p2phelper_tmp_bot"
+TELEGRAM_BOT_USERNANE="corn2p_tmp_bot"
 TELEGRAM_BOT_TOKEN="8259361687:AxxxHKxxxxlC7IhhKCxxxxDy3Oe8xXBMSj4"
 ENC_SECRET="blabla-secret"
 ```
@@ -56,14 +58,26 @@ sudo apt install -y nodejs
 
 - Node.js 20.9.0 이상 설치
 - Node.js 설치 방법은 OS 별로 다를 수 있습니다. OS 별 Node.js 설치 방법은 LLM의 도움을 받으시기 바랍니다.
-- p2phelper 는 Node.js 를 사용할 수 있는 환경이라면 어디서든 구동이 가능하지만 보다 안정적인 서비스 환경을 지원하기 위해 전용 서버 머신에서 운영하실 것을 권장합니다.
+- Corn2P 는 Node.js 를 사용할 수 있는 환경이라면 어디서든 구동이 가능하지만 보다 안정적인 서비스 환경을 지원하기 위해 전용 서버 머신에서 운영하실 것을 권장합니다.
 
 <br/>
 
-## p2phelper 다운로드 ⬇️
+## 설치 옵션
+
+### Umbrel 커뮤니티 앱으로 설치 🌈
+
+1. Umbrel OS에서 앱 스토어에 접속합니다.
+2. 커뮤니티 앱 스토어에 `Corn2P` 리포지토리(`https://github.com/my3rdstory/corn2p`)를 추가하거나, 수동으로 `umbrel-app.yml`을 등록합니다.
+3. 앱 설치 화면의 GUI 폼에서 텔레그램 토큰, 챗 ID 등 필수 설정값을 입력하고 설치를 완료합니다.
+
+앱 설치 이후에는 `/data/umbrel/app-data/corn2p/` 경로에 설정과 데이터베이스가 저장되며, Umbrel 관리자 페이지에서 손쉽게 재시작/삭제할 수 있습니다.
+
+Corn2P는 Bulma + htmx 기반의 경량 설정 페이지를 내장하고 있습니다. Umbrel 대시보드에서 Corn2P 앱을 열면 브라우저로 접속할 수 있으며, 암호화 시크릿은 "자동 생성" 버튼으로 즉시 랜덤 값을 발급받아 저장할 수 있습니다. db.json(상태 데이터)은 경고 안내 후 텍스트 영역에서 직접 열람/편집할 수 있으며, 잘못된 수정은 서비스에 치명적인 문제를 야기할 수 있으므로 주의하세요. 설정을 저장한 뒤에는 앱을 한 번 재시작해야 새 값이 적용됩니다.
+
+### 직접 서버에서 설치 ⬇️
 
 ```
-git clone https://github.com/toshi0010/p2phelper.git
+git clone https://github.com/my3rdstory/corn2p.git
 ```
 
 - 기기에 git 이 설치되어 있지 않다면 git 을 먼저 설치하셔야 합니다
@@ -90,13 +104,13 @@ npm run build
 
 ## 프로젝트 시작 🚀
 
-다음 명령으로 p2phelper 를 시작합니다.
+다음 명령으로 Corn2P 를 시작합니다.
 
 ```
 npm start
 ```
 
-또는 백그라운드 서비스로 시작하려면 아래 명령으로 p2phelper 를 시작합니다
+또는 백그라운드 서비스로 시작하려면 아래 명령으로 Corn2P 를 시작합니다
 
 ```
 nohup npm start &
@@ -141,7 +155,7 @@ nohup npm start &
 
 # 프로젝트 후원 🌱
 
-p2phelper는 중앙의 통제나 간섭 없이, 누구나 자유롭고 편리하게 비트코인을 주고받을 수 있는 p2p 거래 환경을 만들어 갑니다.
+Corn2P는 중앙의 통제나 간섭 없이, 누구나 자유롭고 편리하게 비트코인을 주고받을 수 있는 p2p 거래 환경을 만들어 갑니다.
 
 여러분의 후원은 이 자유의 네트워크를 더욱 단단하게 세우는 힘이 됩니다.
 

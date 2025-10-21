@@ -1,0 +1,70 @@
+manifestVersion: 1
+id: corn2p
+category: finance
+name: Corn2P
+version: 0.1.1
+releaseNotes: |
+  - Umbrel 앱 스켈레톤과 Docker 빌드 환경을 추가했습니다.
+  - Bulma + htmx 기반 설정 페이지와 ENC_SECRET 자동 생성기를 포함했습니다.
+  - db.json 편집을 위한 안전 장치 및 경고 워크플로우를 추가했습니다.
+icon: assets/icon.png
+gallery:
+  - assets/banner.png
+tagline: "텔레그램 P2P 거래 도우미"
+description: |
+  Corn2P는 텔레그램 봇과 PushBullet을 연동해서 P2P 거래를 자동화하고 감시하는 도구입니다.
+  본 패키지는 Umbrel 커뮤니티 앱 스토어 배포를 위한 기본 구조와 Docker 설정을 제공합니다.
+website: https://github.com/my3rdstory/corn2p
+source: https://github.com/my3rdstory/corn2p
+support: https://github.com/my3rdstory/corn2p/issues
+developer: toshi
+dependencies: []
+repo: https://github.com/my3rdstory/corn2p
+port: 2121
+appProxy:
+  target: corn2p
+  port: 2121
+  path: /
+forms:
+  setup:
+    title: Corn2P 설정
+    description: "Corn2P가 텔레그램과 PushBullet에 연결되도록 필수 설정값을 입력하세요."
+    submitButtonText: 저장
+    sections:
+      - title: 텔레그램 연동
+        fields:
+          - id: TELEGRAM_BOT_TOKEN
+            title: 텔레그램 봇 토큰
+            placeholder: "123456:ABCDEF"
+            secret: true
+            required: true
+          - id: TELEGRAM_BOT_USERNANE
+            title: 텔레그램 봇 사용자 이름
+            placeholder: "corn2p_bot"
+            helperText: "@ 없이 입력하세요."
+            required: true
+      - title: 암호화 & PushBullet
+        fields:
+          - id: ENC_SECRET
+            title: 암호화 시크릿
+            placeholder: "랜덤 문자열"
+            secret: true
+            required: true
+      - title: 관리자 알림 채널
+        description: "각 텔레그램 채널의 chat_id 값을 숫자로 입력하세요."
+        fields:
+          - id: CORN2P_CHAT_ID_HISTORY
+            title: 거래 내역 채널 chat_id
+            placeholder: "0"
+          - id: CORN2P_CHAT_ID_ADMIN
+            title: 관리자 채널 chat_id
+            placeholder: "0"
+          - id: CORN2P_CHAT_ID_PUSH
+            title: PushBullet 채널 chat_id
+            placeholder: "0"
+          - id: CORN2P_CHAT_ID_LOG
+            title: 로그 채널 chat_id
+            placeholder: "0"
+          - id: CORN2P_CHAT_ID_ERROR
+            title: 에러 채널 chat_id
+            placeholder: "0"
