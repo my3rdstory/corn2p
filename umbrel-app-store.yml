@@ -1,13 +1,13 @@
-apiVersion: 1
-id: corn2p-store
+apiVersion: 1.1
+id: dedsec-umbrel-app-store
 name: Corn2P
 description: Corn2P 텔레그램 P2P 봇을 Umbrel에서 손쉽게 사용할 수 있도록 제공하는 커뮤니티 앱 저장소입니다.
 maintainers:
   - name: Corn2P Maintainers
     email: my3rdstory@gmail.com
 links:
-  source: https://github.com/my3rdstory/corn2p
-  issues: https://github.com/my3rdstory/corn2p/issues
+  source: https://github.com/my3rdstory/dedsec-umbrel-app-store
+  issues: https://github.com/my3rdstory/dedsec-umbrel-app-store/issues
 tags:
   - corn2p
   - telegram
