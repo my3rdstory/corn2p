@@ -63,9 +63,9 @@ export const BASED_ON_UPBIT = true
  * (그룹 채팅방의 아이디는 `/chatid` 명령으로 확인 가능)
  */
 export const CHAT_ID = {
-  history: isDev ? 0 : 0, // 거래 내역 채팅방
-  admin: isDev ? 0 : 0, // 관리자 채팅방
-  push: isDev ? 0 : 0, // PushBullet 알림 채팅방
-  log: isDev ? 0 : 0, // 로그 채팅방
-  error: isDev ? 0 : 0, // 에러 알림 채팅방
+  history: isDev ? -4908624652 : -4908624652, // 거래 내역 채팅방
+  admin: isDev ? -4908624652 : -4908624652, // 관리자 채팅방
+  push: isDev ? -4908624652 : -4908624652, // PushBullet 알림 채팅방
+  log: isDev ? -4908624652 : -4908624652, // 로그 채팅방
+  error: isDev ? -4908624652 : -4908624652, // 에러 알림 채팅방
 }
