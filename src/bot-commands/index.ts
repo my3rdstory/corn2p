@@ -10,6 +10,7 @@ import {
 import { CHAT_ID } from '../biz/config'
 import { sendMsg } from '../biz/get-tele-bot'
 import { dateFormat } from '../utils/lib'
+import { withAuth } from './helpers/with-auth'
 import adminDeleteTrade from './admin/admin-delete-trade'
 import adminEditP from './admin/admin-edit-p'
 import adminHideMe from './admin/admin-hide-me'
@@ -27,6 +28,7 @@ import buy from './handlers/buy'
 import buyerInfo from './handlers/buyer-info'
 import chatId from './handlers/chat-id'
 import commandLogger from './handlers/command-logger'
+import auth from './handlers/auth'
 import confirmKrw from './handlers/confirm-krw'
 import confirmKrwAndSendSats from './handlers/confirm-krw-and-send-sats'
 import confirmSatsSended from './handlers/confirm-sats-sended'
@@ -54,12 +56,15 @@ import tradesNotPaid from './handlers/trades-not-paid'
 
 export const initBotCommands = bot => {
   const addCommand = getAddCommand(bot)
+  const addProtectedCommand = (reg, handler) =>
+    addCommand(reg, withAuth(handler))
 
   // 공통 명령
   addCommand(
     new RegExp(`^\/help(?:@${process.env.TELEGRAM_BOT_USERNANE})?$`, 'i'),
     help,
   )
+  addCommand(/^\/auth$/i, auth)
   addCommand(/^\/chatid$/i, chatId)
   addCommand(
     new RegExp(`^\/myinfo(?:@${process.env.TELEGRAM_BOT_USERNANE})?$`, 'i'),
@@ -82,57 +87,87 @@ export const initBotCommands = bot => {
   addCommand(/^\/sellerinfo (\S+)$/i, sellerInfo)
 
   // 안드로이드 판매자 등록
-  addCommand(/^\/newseller (\S+) (\S+) (\S+) (\S+) (\S+) (\S+)$/i, newSeller)
-  addCommand(/^\/newseller (\S+) (\S+) (\S+) (\S+) (\S+)$/i, newSeller)
-  addCommand(/^\/newseller (\S+) (\S+) (\S+) (\S+)$/i, newSeller)
-  addCommand(/^\/newseller (\S+) (\S+) (\S+)$/i, newSeller)
-  addCommand(/^\/newseller (\S+) (\S+)$/i, newSeller)
-  addCommand(/^\/newseller (\S+)$/i, newSeller)
-  addCommand(/^\/newseller$/i, newSeller)
+  addProtectedCommand(
+    /^\/newseller (\S+) (\S+) (\S+) (\S+) (\S+) (\S+)$/i,
+    newSeller,
+  )
+  addProtectedCommand(
+    /^\/newseller (\S+) (\S+) (\S+) (\S+) (\S+)$/i,
+    newSeller,
+  )
+  addProtectedCommand(
+    /^\/newseller (\S+) (\S+) (\S+) (\S+)$/i,
+    newSeller,
+  )
+  addProtectedCommand(
+    /^\/newseller (\S+) (\S+) (\S+)$/i,
+    newSeller,
+  )
+  addProtectedCommand(/^\/newseller (\S+) (\S+)$/i, newSeller)
+  addProtectedCommand(/^\/newseller (\S+)$/i, newSeller)
+  addProtectedCommand(/^\/newseller$/i, newSeller)
 
   // 아이폰 판매자 등록
-  addCommand(
+  addProtectedCommand(
     /^\/newselleriphone (\S+) (\S+) (\S+) (\S+) (\S+)$/i,
     newSellerIphone,
   )
-  addCommand(/^\/newselleriphone (\S+) (\S+) (\S+) (\S+)$/i, newSellerIphone)
-  addCommand(/^\/newselleriphone (\S+) (\S+) (\S+)$/i, newSellerIphone)
-  addCommand(/^\/newselleriphone (\S+) (\S+)$/i, newSellerIphone)
-  addCommand(/^\/newselleriphone (\S+)$/i, newSellerIphone)
-  addCommand(/^\/newselleriphone$/i, newSellerIphone)
+  addProtectedCommand(
+    /^\/newselleriphone (\S+) (\S+) (\S+) (\S+)$/i,
+    newSellerIphone,
+  )
+  addProtectedCommand(
+    /^\/newselleriphone (\S+) (\S+) (\S+)$/i,
+    newSellerIphone,
+  )
+  addProtectedCommand(/^\/newselleriphone (\S+) (\S+)$/i, newSellerIphone)
+  addProtectedCommand(/^\/newselleriphone (\S+)$/i, newSellerIphone)
+  addProtectedCommand(/^\/newselleriphone$/i, newSellerIphone)
 
   // 구매자 명령
-  addCommand(/^\/buy (\S+) (\S+)$/i, buy)
-  addCommand(/^\/buy (\S+)$/i, buy)
-  addCommand(/^\/buy$/i, buy)
-  addCommand(/^\/deletebuyer$/i, deleteBuyer)
-  addCommand(/^\/deletetrade$/i, deleteTrade)
-  addCommand(/^\/deletetrade (\S+)$/i, deleteTrade)
-  addCommand(/^\/deletetrade_([0-9a-f]{8})$/i, deleteTrade)
-  addCommand(/^\/(\d)$/i, n)
-  addCommand(/^\/(\d)[ _](\S+)$/i, n)
-  addCommand(
+  addProtectedCommand(/^\/buy (\S+) (\S+)$/i, buy)
+  addProtectedCommand(/^\/buy (\S+)$/i, buy)
+  addProtectedCommand(/^\/buy$/i, buy)
+  addProtectedCommand(/^\/deletebuyer$/i, deleteBuyer)
+  addProtectedCommand(/^\/deletetrade$/i, deleteTrade)
+  addProtectedCommand(/^\/deletetrade (\S+)$/i, deleteTrade)
+  addProtectedCommand(/^\/deletetrade_([0-9a-f]{8})$/i, deleteTrade)
+  addProtectedCommand(/^\/(\d)$/i, n)
+  addProtectedCommand(/^\/(\d)[ _](\S+)$/i, n)
+  addProtectedCommand(
     new RegExp(`^\\/(\\d{2,})(?:@${process.env.TELEGRAM_BOT_USERNANE})?$`, 'i'),
     amountBuy,
   )
 
   // 판매자 명령
-  addCommand(/^\/newbuyer (\S+)$/i, newBuyer)
-  addCommand(/^\/deleteseller$/i, deleteSeller)
-  addCommand(/^\/hideme$/i, hideMe)
-  addCommand(/^\/showme$/i, showMe)
-  addCommand(/^\/editp (\S+)$/i, editP)
-  addCommand(/^\/editp$/i, editP)
-  addCommand(/^\/editcontact (\S+)$/i, editContact)
-  addCommand(/^\/editaccount (\S+)$/i, editAccount)
-  addCommand(/^\/editaccount (\S+) (\S+) (\S+)$/i, editAccount)
-  addCommand(/^\/tradesNotPaid$/i, tradesNotPaid)
-  addCommand(/^\/tnp$/i, tradesNotPaid)
-  addCommand(/^\/confirmkrw_([0-9a-f]{8})$/i, confirmKrw)
-  addCommand(/^\/confirmkrwandsendsats_([0-9a-f]{8})$/i, confirmKrwAndSendSats)
-  addCommand(/^\/deletetradenotpaid_([0-9a-f]{8})$/i, deleteTradeNotPaid)
-  addCommand(/^\/confirmsatssended_([0-9a-f]{8})$/i, confirmSatsSended)
-  addCommand(/^\/buyerinfo (\S+)$/i, buyerInfo)
+  addProtectedCommand(/^\/newbuyer (\S+)$/i, newBuyer)
+  addProtectedCommand(/^\/deleteseller$/i, deleteSeller)
+  addProtectedCommand(/^\/hideme$/i, hideMe)
+  addProtectedCommand(/^\/showme$/i, showMe)
+  addProtectedCommand(/^\/editp (\S+)$/i, editP)
+  addProtectedCommand(/^\/editp$/i, editP)
+  addProtectedCommand(/^\/editcontact (\S+)$/i, editContact)
+  addProtectedCommand(/^\/editaccount (\S+)$/i, editAccount)
+  addProtectedCommand(
+    /^\/editaccount (\S+) (\S+) (\S+)$/i,
+    editAccount,
+  )
+  addProtectedCommand(/^\/tradesNotPaid$/i, tradesNotPaid)
+  addProtectedCommand(/^\/tnp$/i, tradesNotPaid)
+  addProtectedCommand(/^\/confirmkrw_([0-9a-f]{8})$/i, confirmKrw)
+  addProtectedCommand(
+    /^\/confirmkrwandsendsats_([0-9a-f]{8})$/i,
+    confirmKrwAndSendSats,
+  )
+  addProtectedCommand(
+    /^\/deletetradenotpaid_([0-9a-f]{8})$/i,
+    deleteTradeNotPaid,
+  )
+  addProtectedCommand(
+    /^\/confirmsatssended_([0-9a-f]{8})$/i,
+    confirmSatsSended,
+  )
+  addProtectedCommand(/^\/buyerinfo (\S+)$/i, buyerInfo)
 
   // 관리자 명령
   addCommand(/^\/adminwslist$/i, wsList)
@@ -155,6 +190,7 @@ export const initBotCommands = bot => {
 
   // 명령어 목록 설정
   bot.setMyCommands([
+    { command: '/auth', description: 'Discord 역할 인증 🔐' },
     { command: '/help', description: '이용가이드 🤖' },
     { command: '/price', description: '비트코인 시세 📈' },
     { command: '/list', description: '판매자 목록 📜' },
