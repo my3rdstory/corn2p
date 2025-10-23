@@ -25,28 +25,24 @@ TELEGRAM_BOT_USERNANE="corn2p_tmp_bot"
 TELEGRAM_BOT_TOKEN="0000000000:telegram-bot-token"
 ENC_SECRET="change-me"
 
+DISCORD_BOT_TOKEN="discord-bot-token"
 DISCORD_CLIENT_ID="discord-app-client-id"
-DISCORD_CLIENT_SECRET="discord-app-client-secret"
-DISCORD_REDIRECT_URI="https://your-domain/auth/discord/callback"
 DISCORD_GUILD_ID="discord-server-id"
 DISCORD_REQUIRED_ROLE_ID="discord-role-id"
 DISCORD_REQUIRED_ROLE_NAME="풀노더"
-
-AUTH_SERVER_PORT=3000
-AUTH_SERVER_PUBLIC_URL="https://your-domain"
 ```
 
 - `ENC_SECRET` 값은 길이나 형식에 제한이 없으며 판매자의 지갑 api-key 와 PushBullet key 를 암호화하고 복호화하는데 사용됩니다.
 - 특별히 `TELEGRAM_BOT_TOKEN` 과 `ENC_SECRET` 값은 외부에 노출되지 않도록 주의합니다.
-- Discord OAuth2 설정을 위해 필요한 값은 글 하단의 "Discord 인증 준비물" 섹션을 참고하세요.
+- Discord 봇 설정에 필요한 값은 글 하단의 "Discord 인증 준비물" 섹션을 참고하세요.
 
 <br/>
 
 ## Discord 인증 설정 🔐
 
-- Corn2P 사용자는 텔레그램에서 `/auth` 명령을 통해 Discord OAuth2 인증을 완료해야 판매·구매 관련 명령을 실행할 수 있습니다.
-- 인증 서버는 `AUTH_SERVER_PORT` 로 실행되며, 텔레그램에 안내되는 링크는 `AUTH_SERVER_PUBLIC_URL` 을 기준으로 생성됩니다.
-- 인증이 완료되면 `auth-db.json`(운영) 또는 `auth-db-dev.json`(개발)에 Discord 사용자 정보와 역할이 저장됩니다.
+- Corn2P 사용자는 텔레그램에서 `/auth` 명령을 실행하면 6자리 숫자 코드가 발급됩니다.
+- Discord Corn2P 서버에서 `/auth <코드>` 슬래시 명령을 실행하면 Corn2P Discord 봇이 역할 보유 여부를 확인합니다.
+- 역할이 확인되면 텔레그램으로 인증 완료 메시지가 전송되고, `auth-db.json`(운영) 또는 `auth-db-dev.json`(개발)에 기록됩니다.
 
 <br/>
 
@@ -133,20 +129,18 @@ nohup npm start &
 
 ## Discord 인증 준비물 📋
 
-Corn2P의 Discord OAuth2 인증을 구축하기 위해서는 아래 항목이 필요합니다.
+Corn2P의 Discord 봇 인증을 구축하려면 아래 항목이 필요합니다.
 
-- **Discord 개발자 포털**([https://discord.com/developers/applications](https://discord.com/developers/applications))에서 Corn2P용 애플리케이션 생성  
-  - *OAuth2 > General* 탭: `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET` 확인  
-  - *OAuth2 > Redirects* 에 `DISCORD_REDIRECT_URI` 등록 (예: `https://your-domain/auth/discord/callback`)
-- **Discord 서버(길드) ID**: 데스크톱 앱에서 개발자 모드를 켜고 서버 아이콘 우클릭 → "ID 복사" (`DISCORD_GUILD_ID`)
-- **필수 역할 ID**: 서버 설정 > 역할에서 대상 역할 우클릭 → "ID 복사" (`DISCORD_REQUIRED_ROLE_ID`)
-- **필수 역할 이름**: 안내 메시지에 노출할 사람이 이해하기 쉬운 이름 (`DISCORD_REQUIRED_ROLE_NAME`)
-- **공개 접근 가능한 URL**: 텔레그램 사용자에게 노출될 인증 링크의 베이스 URL (`AUTH_SERVER_PUBLIC_URL`)
+- **Discord 개발자 포털**([https://discord.com/developers/applications](https://discord.com/developers/applications))에서 애플리케이션 생성  
+  - *Bot* 탭에서 봇을 추가하고 `DISCORD_BOT_TOKEN` 을 복사  
+  - *Privileged Gateway Intents* 에서 **SERVER MEMBERS INTENT** 활성화
+- **Slash 명령 등록용 정보**: *General Information* 탭의 `Application ID` → `DISCORD_CLIENT_ID`
+- **Corn2P Discord 서버 ID**: Discord 데스크톱 앱에서 개발자 모드 활성화 후 서버 아이콘 우클릭 → “ID 복사” (`DISCORD_GUILD_ID`)
+- **필수 역할 ID**: 서버 설정 > 역할에서 대상 역할 우클릭 → “ID 복사” (`DISCORD_REQUIRED_ROLE_ID`)
+- **필수 역할 이름**: 안내 메시지에 사용할 문자열 (`DISCORD_REQUIRED_ROLE_NAME`, 기본 “풀노더”)
+- Corn2P Discord 봇을 Corn2P 서버에 초대하고 `/auth` 슬래시 명령을 사용할 수 있도록 권한 구성
 
-> 팁: 인증 서버는 HTTPS 환경에서 운영하는 것을 권장합니다. Umbrel에서 reverse proxy를 사용한다면 해당 도메인을 `AUTH_SERVER_PUBLIC_URL` 로 지정하면 됩니다.
-
-<br/>
-<br/>
+> 팁: Discord 봇은 WebSocket 으로 Discord에 연결되므로 내부 미니 PC에서 실행해도 별도의 외부 포트가 필요 없습니다.
 
 # 프로젝트 개발 참여 👥
 

@@ -60,31 +60,31 @@ export const initBotCommands = bot => {
     addCommand(reg, withAuth(handler))
 
   // 공통 명령
-  addCommand(
+  addProtectedCommand(
     new RegExp(`^\/help(?:@${process.env.TELEGRAM_BOT_USERNANE})?$`, 'i'),
     help,
   )
   addCommand(/^\/auth$/i, auth)
-  addCommand(/^\/chatid$/i, chatId)
-  addCommand(
+  addProtectedCommand(/^\/chatid$/i, chatId)
+  addProtectedCommand(
     new RegExp(`^\/myinfo(?:@${process.env.TELEGRAM_BOT_USERNANE})?$`, 'i'),
     myInfo,
   )
 
-  addCommand(
+  addProtectedCommand(
     new RegExp(`^\/price(?:@${process.env.TELEGRAM_BOT_USERNANE})?$`, 'i'),
     price,
   )
-  addCommand(
+  addProtectedCommand(
     new RegExp(`^\/list(?:@${process.env.TELEGRAM_BOT_USERNANE})?$`, 'i'),
     list,
   )
-  addCommand(
+  addProtectedCommand(
     new RegExp(`^\/pricelist(?:@${process.env.TELEGRAM_BOT_USERNANE})?$`, 'i'),
     priceList,
   )
-  addCommand(/^\/tradeinfo (\S+)$/i, tradeInfo)
-  addCommand(/^\/sellerinfo (\S+)$/i, sellerInfo)
+  addProtectedCommand(/^\/tradeinfo (\S+)$/i, tradeInfo)
+  addProtectedCommand(/^\/sellerinfo (\S+)$/i, sellerInfo)
 
   // 안드로이드 판매자 등록
   addProtectedCommand(
@@ -170,20 +170,26 @@ export const initBotCommands = bot => {
   addProtectedCommand(/^\/buyerinfo (\S+)$/i, buyerInfo)
 
   // 관리자 명령
-  addCommand(/^\/adminwslist$/i, wsList)
-  addCommand(/^\/adminallsellers$/i, allSellers)
-  addCommand(/^\/adminallbuyers$/i, allBuyers)
-  addCommand(/^\/adminalltrades$/i, allTrades)
-  addCommand(/^\/adminTradesNotPaid$/i, adminTradesNotPaid)
-  addCommand(/^\/atnp$/i, adminTradesNotPaid)
-  addCommand(/^\/admindeletetrade (\S+)$/i, adminDeleteTrade)
-  addCommand(/^\/admindeleteseller (\S+)$/i, adminDeleteSeller)
-  addCommand(/^\/admineditp (\S+) (\S+)$/i, adminEditP)
-  addCommand(/^\/adminhideme (\S+)$/i, adminHideMe)
-  addCommand(/^\/admindeletebuyer (\S+)$/i, adminDeleteBuyer)
-  addCommand(/^\/admindeletebuyer_(\d+)/i, adminDeleteBuyer)
-  addCommand(/^\/admincleartradecompleted$/i, clearTradeCompleted)
-  addCommand(/^\/admincleartradenotpaid$/i, clearTradeNotPaid)
+  addProtectedCommand(/^\/adminwslist$/i, wsList)
+  addProtectedCommand(/^\/adminallsellers$/i, allSellers)
+  addProtectedCommand(/^\/adminallbuyers$/i, allBuyers)
+  addProtectedCommand(/^\/adminalltrades$/i, allTrades)
+  addProtectedCommand(/^\/adminTradesNotPaid$/i, adminTradesNotPaid)
+  addProtectedCommand(/^\/atnp$/i, adminTradesNotPaid)
+  addProtectedCommand(/^\/admindeletetrade (\S+)$/i, adminDeleteTrade)
+  addProtectedCommand(/^\/admindeleteseller (\S+)$/i, adminDeleteSeller)
+  addProtectedCommand(/^\/admineditp (\S+) (\S+)$/i, adminEditP)
+  addProtectedCommand(/^\/adminhideme (\S+)$/i, adminHideMe)
+  addProtectedCommand(/^\/admindeletebuyer (\S+)$/i, adminDeleteBuyer)
+  addProtectedCommand(/^\/admindeletebuyer_(\d+)/i, adminDeleteBuyer)
+  addProtectedCommand(
+    /^\/admincleartradecompleted$/i,
+    clearTradeCompleted,
+  )
+  addProtectedCommand(
+    /^\/admincleartradenotpaid$/i,
+    clearTradeNotPaid,
+  )
 
   // 명령어 로깅
   bot.onText(/.+/, commandLogger(bot))

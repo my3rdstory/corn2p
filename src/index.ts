@@ -2,11 +2,11 @@ import { notiLog } from './biz/common'
 import getTeleBot from './biz/get-tele-bot'
 import { initWsList } from './biz/ws-manager'
 import { initBotCommands } from './bot-commands'
-import { startAuthServer } from './ui/auth-server'
+import { initDiscordBot } from './discord/bot'
 
 const teleBot = getTeleBot()
 initBotCommands(teleBot)
 initWsList()
-startAuthServer()
+initDiscordBot()
 
 notiLog(`Corn2P bot started 🚀🚀`, { level: 'info' })
