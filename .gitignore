@@ -9,5 +9,3 @@ coverage/
 .env.dev
 db-dev.json
 db.json
-reference-store/
-reference-store

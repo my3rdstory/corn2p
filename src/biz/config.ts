@@ -1,30 +1,14 @@
 import { execSync } from 'child_process'
-import { join } from 'path'
 
-const resolveBranch = () => {
-  try {
-    return execSync('git rev-parse --abbrev-ref HEAD')
-      .toString()
-      .replace('\n', '')
-  } catch {
-    return 'main'
-  }
-}
+// Git 브랜치 확인을 통한 개발/운영 환경 구분
+const branch = execSync('git rev-parse --abbrev-ref HEAD')
+  .toString()
+  .replace('\n', '')
 
-const branch = resolveBranch()
-
-const envMode = process.env.CORN2P_ENV ?? process.env.NODE_ENV
-
-export const isDev = envMode
-  ? envMode !== 'production'
-  : branch !== 'main'
-
-const dataDir = process.env.CORN2P_DATA_DIR ?? '.'
-const dbFileName =
-  process.env.CORN2P_DB_FILE ?? (isDev ? 'db-dev.json' : 'db.json')
+export const isDev = branch !== 'main'
 
 // 환경별 데이터베이스 파일 경로 설정
-export const DB_PATH = join(dataDir, dbFileName)
+export const DB_PATH = isDev ? 'db-dev.json' : 'db.json'
 
 // 관리자 수수료 수취용 Blink 주소
 export const ADMIN_ADDRESS = 'p2phelper@blink.sv'
@@ -78,15 +62,10 @@ export const BASED_ON_UPBIT = true
  * 아래 CHAT_ID 설정에 유형 별로 그룹채팅방을 만들어 설정하면 텔레그램을 통해 실시간으로 시스템을 모니터링 할 수 있습니다.
  * (그룹 채팅방의 아이디는 `/chatid` 명령으로 확인 가능)
  */
-const toNumber = (value?: string) => {
-  const parsed = Number(value)
-  return Number.isFinite(parsed) ? parsed : 0
-}
-
 export const CHAT_ID = {
-  history: toNumber(process.env.CORN2P_CHAT_ID_HISTORY), // 거래 내역 채팅방
-  admin: toNumber(process.env.CORN2P_CHAT_ID_ADMIN), // 관리자 채팅방
-  push: toNumber(process.env.CORN2P_CHAT_ID_PUSH), // PushBullet 알림 채팅방
-  log: toNumber(process.env.CORN2P_CHAT_ID_LOG), // 로그 채팅방
-  error: toNumber(process.env.CORN2P_CHAT_ID_ERROR), // 에러 알림 채팅방
+  history: isDev ? 0 : 0, // 거래 내역 채팅방
+  admin: isDev ? 0 : 0, // 관리자 채팅방
+  push: isDev ? 0 : 0, // PushBullet 알림 채팅방
+  log: isDev ? 0 : 0, // 로그 채팅방
+  error: isDev ? 0 : 0, // 에러 알림 채팅방
 }
