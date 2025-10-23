@@ -30,12 +30,13 @@ export const withAuth =
             `Corn2P를 이용하려면 Discord '${requirement.requiredRoleName}' 역할 인증이 필요합니다.`,
             '아래 절차를 따라 주세요:',
             '1. Corn2P Discord 서버에서 역할을 부여받고',
-            '2. Discord에서 아래 명령을 실행해 주세요.',
+            '2. Discord의 Corn2p 인증 채널에서 /auth 명령을 실행해 주세요.',
+            '3. code 입력창이 나오면 아래 제시하는 코드를 입력하세요.',
             '',
             '인증이 완료되면 이 메시지는 더 이상 표시되지 않습니다.',
           ].join('\n'),
         )
-        await sendMsg(chatId, `/auth ${code}`)
+        await sendMsg(chatId, `${code}`)
         return
       }
 
