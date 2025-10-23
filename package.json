@@ -1,10 +1,10 @@
 {
-  "name": "p2phelper",
+  "name": "corn2p",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --clear --transpile-only --ignore-watch node_modules -r dotenv/config ./src/index.ts dotenv_config_path=.env.dev",
+    "dev": "ts-node-dev --respawn --clear --transpile-only --ignore-watch node_modules -r dotenv/config ./src/index.ts dotenv_config_path=.env",
     "build": "rm -rf ./dist && tsc",
     "test": "jest",
     "test:watch": "jest --watchAll",
