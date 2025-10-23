@@ -11,7 +11,7 @@ export const isDev = branch !== 'main'
 export const DB_PATH = isDev ? 'db-dev.json' : 'db.json'
 
 // 관리자 수수료 수취용 Blink 주소
-export const ADMIN_ADDRESS = 'corn2p@blink.sv'
+export const ADMIN_ADDRESS = 'nextmoney@strike.me'
 
 // 판매자 등록을 위한 최소 라이트닝 잔액 (적은 금액으로 판매자 등록을 쉽게 시도해 볼 수 있도록 하기 위해 초기에는 낮게 설정)
 export const SELLER_WALLET_MIN_BALANCE = 1000 // sats

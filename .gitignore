@@ -9,3 +9,4 @@ coverage/
 .env.dev
 db-dev.json
 db.json
+auth-db.json
