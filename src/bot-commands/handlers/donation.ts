@@ -1,6 +1,7 @@
+import QRCode from 'qrcode'
 import { notiLog } from '../../biz/common'
 import { generateBlinkInvoice } from '../../biz'
-import { sendMsg } from '../../biz/get-tele-bot'
+import { sendMsg, sendPhoto } from '../../biz/get-tele-bot'
 
 interface DonationCommandOptions {
   amount: number
@@ -49,10 +50,33 @@ export default function createDonationHandler({
         apiKey: DONATION_API_KEY,
       })
 
+      let qrBuffer: Buffer | null = null
+      try {
+        qrBuffer = await QRCode.toBuffer(invoice.paymentRequest, {
+          type: 'png',
+          margin: 1,
+          scale: 6,
+          errorCorrectionLevel: 'M',
+        })
+      } catch (qrErr: any) {
+        const qrErrMsg = qrErr?.message ?? String(qrErr)
+        await notiLog(
+          `[Donation QR failed] ${label} ${amount} sats\n${qrErrMsg}`,
+        )
+      }
+
       await sendMsg(
         chatId,
         `${prefix}${label} 후원 인보이스가 준비됐어요 (${amount.toLocaleString()} sats). 잘 먹을게요! `,
       )
+
+      if (qrBuffer) {
+        await sendPhoto(chatId, qrBuffer, {
+          caption: `${prefix}${label} QR 인보이스예요. 복사하려면 아래 문자열을 사용해 주세요.`,
+        })
+      } else {
+        await sendMsg(chatId, 'QR 이미지를 만들지 못했어요. 텍스트 인보이스를 이용해 주세요.')
+      }
       await sendMsg(chatId, invoice.paymentRequest)
 
     } catch (err: any) {

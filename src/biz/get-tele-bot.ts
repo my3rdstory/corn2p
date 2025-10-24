@@ -37,3 +37,17 @@ export const sendMsg = sequentialInvoke(function sendMessage(
     .catch(err => logger.error(`[sendMsg] ${err.message}`))
 },
 5) // 순서대로 호출되는 것만 보장된다면 사실상 delay 는 없어도 되는 상황인 것으로 보임
+
+export const sendPhoto = sequentialInvoke(function sendPhotoMessage(
+  chatId: number,
+  photo: Parameters<TelegramBot['sendPhoto']>[1],
+  option?: Parameters<TelegramBot['sendPhoto']>[2],
+) {
+  if (!chatId || !photo) {
+    return Promise.resolve()
+  }
+
+  return bot
+    .sendPhoto(chatId, photo, option)
+    .catch(err => logger.error(`[sendPhoto] ${err.message}`))
+}, 5)
