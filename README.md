@@ -24,6 +24,7 @@ Corn2P는 비트코인 p2p 거래 과정을 자동화하여 보다 쉽고 빠르
 TELEGRAM_BOT_USERNANE="corn2p_tmp_bot"
 TELEGRAM_BOT_TOKEN="0000000000:telegram-bot-token"
 ENC_SECRET="change-me"
+DONATION_BLINK_API_KEY="blink_live_..."
 
 DISCORD_BOT_TOKEN="discord-bot-token"
 DISCORD_CLIENT_ID="discord-app-client-id"
@@ -33,6 +34,7 @@ DISCORD_REQUIRED_ROLE_NAME="풀노더"
 ```
 
 - `ENC_SECRET` 값은 길이나 형식에 제한이 없으며 판매자의 지갑 api-key 와 PushBullet key 를 암호화하고 복호화하는데 사용됩니다.
+- `/coffee`, `/candy` 후원 인보이스를 사용하려면 `DONATION_BLINK_API_KEY` 에 Blink 지갑 API 키를 입력하세요. Blink 키가 없다면 인보이스 명령은 동작하지 않습니다.
 - 특별히 `TELEGRAM_BOT_TOKEN` 과 `ENC_SECRET` 값은 외부에 노출되지 않도록 주의합니다.
 - Discord 봇 설정에 필요한 값은 글 하단의 "Discord 인증 준비물" 섹션을 참고하세요.
 

@@ -184,6 +184,53 @@ export const generateBlinkInvoice = async ({ memo, amount, apiKey }) => {
   return result.data.lnInvoiceCreateOnBehalfOfRecipient.invoice
 }
 
+interface GetBlinkInvoiceStatusInput {
+  apiKey: string
+  paymentHash?: string
+  paymentRequest?: string
+}
+
+export const getBlinkInvoiceStatus = async ({
+  apiKey,
+  paymentHash,
+  paymentRequest,
+}: GetBlinkInvoiceStatusInput) => {
+  assert(apiKey, `BLINK_API_KEY is undefined`)
+  assert(paymentHash || paymentRequest, `paymentHash or paymentRequest required`)
+
+  const result = await reqGraphql({
+    apiKey,
+    query: gql`
+      query LnInvoicePaymentStatus($input: LnInvoicePaymentStatusInput!) {
+        lnInvoicePaymentStatus(input: $input) {
+          status
+          errors {
+            message
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        ...(paymentHash ? { paymentHash } : {}),
+        ...(paymentRequest ? { paymentRequest } : {}),
+      },
+    },
+  })
+
+  const payload = result.data?.lnInvoicePaymentStatus
+  assert(payload, `Invoice status response is empty`)
+
+  const [firstError] = payload.errors ?? []
+  if (firstError) {
+    throw Error(
+      `Invoice status error: ${firstError.message ?? JSON.stringify(firstError)}`,
+    )
+  }
+
+  return payload.status as string
+}
+
 export const serializeSeller = async (seller: Seller) => {
   const btcPrice = await getBtcPrice()
   const balance = await _getSatsBalance(seller.apiKey)

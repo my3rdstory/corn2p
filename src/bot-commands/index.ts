@@ -24,6 +24,7 @@ import adminDeleteBuyer from './admin/delete-buyer'
 import adminDeleteSeller from './admin/delete-seller'
 import wsList from './admin/ws-list'
 import amountBuy from './handlers/amount-buy'
+import createDonationHandler from './handlers/donation'
 import buy from './handlers/buy'
 import buyerInfo from './handlers/buyer-info'
 import chatId from './handlers/chat-id'
@@ -69,6 +70,14 @@ export const initBotCommands = bot => {
   addProtectedCommand(
     new RegExp(`^\/myinfo(?:@${process.env.TELEGRAM_BOT_USERNANE})?$`, 'i'),
     myInfo,
+  )
+  addProtectedCommand(
+    new RegExp(`^\/coffee(?:@${process.env.TELEGRAM_BOT_USERNANE})?$`, 'i'),
+    createDonationHandler({ amount: 1000, label: '커피', emoji: '☕️' }),
+  )
+  addProtectedCommand(
+    new RegExp(`^\/candy(?:@${process.env.TELEGRAM_BOT_USERNANE})?$`, 'i'),
+    createDonationHandler({ amount: 300, label: '캔디', emoji: '🍬' }),
   )
 
   addProtectedCommand(
@@ -202,6 +211,8 @@ export const initBotCommands = bot => {
     { command: '/list', description: '판매자 목록 📜' },
     { command: '/pricelist', description: '비트코인 시세 & 판매자 목록 📈📜' },
     { command: '/myinfo', description: '나의 등록 정보 📄' },
+    { command: '/coffee', description: '커피 ☕️ (1000 sats) 후원' },
+    { command: '/candy', description: '캔디 🍬 (300 sats) 후원' },
     { command: '/10000', description: '1만원 구매 💰' },
     { command: '/30000', description: '3만원 구매 💰' },
     { command: '/100000', description: '10만원 구매 💰' },

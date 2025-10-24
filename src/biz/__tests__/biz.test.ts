@@ -493,6 +493,44 @@ test('generateBlinkInvoice 성공/오류', async () => {
   ).rejects.toBeInstanceOf(Error)
 })
 
+test('getBlinkInvoiceStatus 성공/오류', async () => {
+  const { getBlinkInvoiceStatus } = require('..')
+  const common = require('../common')
+
+  common.reqGraphql.mockResolvedValue({
+    data: {
+      lnInvoicePaymentStatus: {
+        status: 'PAID',
+        errors: [],
+      },
+    },
+  })
+
+  await expect(
+    getBlinkInvoiceStatus({
+      apiKey: 'k',
+      paymentHash: 'hash',
+      paymentRequest: 'lnreq',
+    }),
+  ).resolves.toBe('PAID')
+
+  common.reqGraphql.mockResolvedValue({
+    data: {
+      lnInvoicePaymentStatus: {
+        status: 'PENDING',
+        errors: [{ message: 'boom' }],
+      },
+    },
+  })
+
+  await expect(
+    getBlinkInvoiceStatus({
+      apiKey: 'k',
+      paymentRequest: 'lnreq',
+    }),
+  ).rejects.toBeInstanceOf(Error)
+})
+
 test('validateNewSellerParams 성공 및 검증 에러', async () => {
   const { validateNewSellerParams } = require('..')
   const p = {
