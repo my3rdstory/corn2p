@@ -71,9 +71,7 @@ export default function createDonationHandler({
       )
 
       if (qrBuffer) {
-        await sendPhoto(chatId, qrBuffer, {
-          caption: `${prefix}${label} QR 인보이스예요. 복사하려면 아래 문자열을 사용해 주세요.`,
-        })
+        await sendPhoto(chatId, qrBuffer)
       } else {
         await sendMsg(chatId, 'QR 이미지를 만들지 못했어요. 텍스트 인보이스를 이용해 주세요.')
       }
