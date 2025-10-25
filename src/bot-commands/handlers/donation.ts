@@ -49,6 +49,10 @@ export default function createDonationHandler({
         amount,
         apiKey: DONATION_API_KEY,
       })
+      await notiLog(
+        `[Donation invoice created] ${label} ${amount.toLocaleString()} sats ${donor}\n${invoice.paymentRequest}`,
+        { level: 'info' },
+      )
 
       let qrBuffer: Buffer | null = null
       try {
