@@ -798,6 +798,29 @@ test('fetchBtcPriceBithumb fetch 모킹', async () => {
   ;(global as any).fetch = original
 })
 
+test('fetchBtcPrice falls back to Bithumb data on Upbit failure', async () => {
+  const mod = require('..')
+  const lib = require('../../utils/lib')
+  const originalReqGet = lib.req.get
+  const originalFetch = global.fetch
+
+  lib.req.get = jest.fn(async () => {
+    throw new Error('Upbit down')
+  }) as any
+
+  ;(global as any).fetch = jest.fn(async () => ({
+    json: async () => [{ trade_price: 54_321 }],
+  }))
+
+  try {
+    const price = await mod.fetchBtcPrice()
+    expect(price).toBe(54_321)
+  } finally {
+    lib.req.get = originalReqGet
+    ;(global as any).fetch = originalFetch
+  }
+})
+
 test('getRor 계산', () => {
   const { getRor } = require('..')
   // 이 입력은 손익이 음수일 수 있으므로 부호만 검증하지 않고 타입만 검증

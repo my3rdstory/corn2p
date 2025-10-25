@@ -28,6 +28,7 @@ import {
 import logger from '../utils/logger'
 import {
   _getSatsBalance,
+  formatError,
   getBtcPriceBinance,
   getSatsBalance,
   getWalletInfo,
@@ -914,13 +915,36 @@ export const withdrawSats = async (
   }, 3000)
 }
 
-export const fetchBtcPrice = (): Promise<number> =>
-  req
-    .get(`https://api.upbit.com/v1/candles/days`, {
+export const fetchBtcPrice = async (): Promise<number> => {
+  try {
+    const res = await req.get(`https://api.upbit.com/v1/candles/days`, {
       market: 'KRW-BTC',
       count: 1,
     })
-    .then(res => res[0]['trade_price'])
+
+    const price = Number(res?.[0]?.trade_price)
+    assert(
+      Number.isFinite(price),
+      `[fetchBtcPrice] invalid Upbit response: ${JSON.stringify(res?.[0])}`,
+    )
+
+    return price
+  } catch (err) {
+    logger.warn(
+      `[fetchBtcPrice] Upbit price fetch failed. ${formatError(err)} → fallback to Bithumb`,
+    )
+
+    try {
+      return await fetchBtcPriceBithumb()
+    } catch (fallbackErr) {
+      const msg = `[fetchBtcPrice] Bithumb fallback failed. ${formatError(
+        fallbackErr,
+      )}`
+      logger.error(msg)
+      throw new Error(msg)
+    }
+  }
+}
 
 export const fetchBtcPriceBithumb = async (): Promise<number> => {
   const result = await fetch(
@@ -931,7 +955,15 @@ export const fetchBtcPriceBithumb = async (): Promise<number> => {
     },
   ).then(response => response.json())
 
-  const price = result[0].trade_price
+  const rawPrice = Array.isArray(result)
+    ? result?.[0]?.trade_price
+    : result?.data?.trade_price ?? result?.data?.closing_price
+
+  const price = Number(rawPrice)
+  assert(
+    Number.isFinite(price),
+    `[fetchBtcPriceBithumb] invalid response: ${JSON.stringify(result)}`,
+  )
   return price
 }
 
